@@ -1,0 +1,13 @@
+===========================
+plone4bio.pscoils Changes
+===========================
+
+Features
+--------
+
+
+
+plone4bio.pscoils  (2008-01-31)
+=================================
+
+* First release (Mauro Amico)

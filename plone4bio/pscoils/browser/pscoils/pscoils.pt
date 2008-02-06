@@ -1,0 +1,36 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="context/@@standard_macros/page"
+      i18n:domain="plone4bio">
+<head>
+</head>
+<body>
+<div metal:fill-slot="body">
+    <h1 class="documentFirstHeading" tal:content="context/title" />   
+    <p class="description" tal:content="context/description" />
+    <h3>Sequence</h3>
+    <div class="sequence-fw" tal:content="context/getSequenceTxt" />
+	<div tal:content="structure here/plone4bio.base.summary" />
+	<p><img tal:attributes="src string:${here/absolute_url}/png" /></p>
+	<table class="listing">
+		<thead>
+			<tr><th>Pos</th><th>A</th><th>Hep</th><th>Score</th><th>Prob</th><th>Gcc</th><th>Gg</th><th>Pred (Loop=L Coiledcoil=C)</th></tr>
+		</thead>
+		<tbody>
+			<tr tal:repeat="row here/result">
+				<td tal:content="row/index" />
+				<td tal:content="row/alpha" />
+				<td tal:content="row/hept" />
+				<td tal:content="row/score" />
+				<td tal:content="row/prob" />
+				<td tal:content="row/gcc" />
+				<td tal:content="row/gg" />
+				<td tal:content="row/pred" />
+			</tr>
+		</tbody>
+	</table>			
+</div>
+</body>
+</html>
