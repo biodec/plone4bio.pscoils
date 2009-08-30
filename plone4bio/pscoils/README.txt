@@ -16,37 +16,50 @@ whether a signal peptide exists, and so on.
 
 The *plone4bio.pscoils* is a package that defines a simple prediction 
 object based on predictor *biocomp.pscoils* 
-(see http://www.plone4bio.org/svn/biocomp.pscoils/README for more information).
+(see http://plone4bio.org/svn/biocomp.pscoils/trunk/doc/ for more information).
 
 Creating a sequence
 -------------------
 
 Let us create some sequences.
 
-	>>> self.portal.invokeFactory('Sequence','ferritin')
-	'ferritin'
-	>>> ferritin = getattr(self.portal,'ferritin')
+    >>> from Products.PloneTestCase import ptc
+    >>> self.login()
+    >>> self.setRoles(('Manager',))
+    >>> self.portal.invokeFactory('SeqRecord', u'ferritin', title=u'Ferritin')
+    'ferritin'
+    >>> ferritin = getattr(self.portal, u'ferritin')
 
-The Sequence objects are simple Zope 3-like persistent content items, so we 
+The Sequence objects are simple Zope 3-like persistent content items, so we
 will configure the project using theirs properties.
 
-	>>> ferritin.title = u"Ferritin"
-	>>> ferritin.descritpion = u"Ferritin sequence"
-	>>> ferritin.sequence = u"CMSPDQWDKEAAQYDAHAQEFEKKSHRNNGTPEADQYRHMASQYQAMAQKLKAIANQLKKGSETCR"
-	
-Now we can create a prediction over the sequence:
+    >>> ferritin.descritpion = u"Ferritin sequence"
+    >>> ferritin.sequence = u"CMSPDQWDKEAAQYDAHAQEFEKKSHRNNGTPEADQYRHMASQYQAMAQKLKAIANQLKKGSETCR"
+    >>> ferritin.alphabet="Bio.Alphabet.ProteinAlphabet"
 
-	>>> ferritin.invokeFactory('Pscoils Prediction','pscoils')
-	'pscoils'
-	>>> pscoils = getattr(ferritin,'pscoils')
-	>>> pscoils.run()
-	
-	>>> pscoils.getState()
-	'done'
-	>>> (pscoils.result['index'] == range(0,len(ferritin.sequence)))
-	True
-	>>> (u''.join(pscoils.result['alpha']) == ferritin.sequence)
-	True
+Now we can run the pscoils predictor over the sequence:
+
+    >>> from Products.CMFCore.utils import getToolByName
+    >>> pred_tool = getToolByName(self.portal, 'plone4bio_predictors')
+    >>> pred_tool('pscoils', ferritin, store=True)
+    <SeqRecord at /plone/ferritin>
+    >>> len(ferritin.features) == len(ferritin.sequence)
+    True
+    >>> ferritin.features[0].id
+    '<unknown id>'
+    >>> str(ferritin.features[0].location)
+    '[0:0]'
+    >>> ferritin.features[0].location_operator
+    ''
+    >>> ferritin.features[0].qualifiers
+    {'gg': 0.926..., 'hept_seq': 'a', 'gcc': 1.323...e-06, 'score': 0.480..., 'prob': 5.713...e-08}
+    >>> ferritin.features[0].ref
+    >>> ferritin.features[0].ref_db
+    >>> ferritin.features[0].strand
+    >>> ferritin.features[0].sub_features
+    []
+    >>> ferritin.features[0].type
+    'pscoils'
 	
 Developer Notes
 ---------------
@@ -58,5 +71,5 @@ problem in installing the products in other Zope/Plone environments.
 Maintainer
 ----------
 
-Mauro Amico (amico AT biodec DOT com) is the active maintainer of the
-*plone4bio.base* framework.
+Mauro Amico (mauro AT biodec DOT com) is the active maintainer of the
+*plone4bio* framework.

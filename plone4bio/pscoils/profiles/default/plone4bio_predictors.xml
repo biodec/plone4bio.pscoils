@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<plone4bio>
+ <predictors>
+  <predictor name="pscoils" class="plone4bio.pscoils.predictor.PSCoils"/>
+ </predictors>
+</plone4bio>

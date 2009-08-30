@@ -9,4 +9,13 @@
     <!-- Poke dependencies -->
     <include package="plone4bio.base" />
 
+    <!-- Register GenericSetup profile used for installation -->
+    <genericsetup:registerProfile
+        name="default"
+        title="Plone4Bio PSCoils"
+        directory="profiles/default"
+        description="Extension profile for plone4bio.pscoils."
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
 </configure>

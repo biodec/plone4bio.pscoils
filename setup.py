@@ -18,7 +18,7 @@ setup(name='plone4bio.pscoils',
         ],
       keywords='bioinformatics',
       author='Mauro Amico',
-      author_email='amico@biodec.com',
+      author_email='mauro@biodec.com',
       url='http://www.plone4bio.org/svn/plone4bio.pscoils',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
@@ -27,6 +27,7 @@ setup(name='plone4bio.pscoils',
       zip_safe=False,
       install_requires=[
           "setuptools",
-          "plone4bio.base"
+          "plone4bio.base",
+          "biocomp.pscoils",
       ],
       )
