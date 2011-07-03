@@ -29,4 +29,9 @@ setup(name='plone4bio.pscoils',
           "plone4bio.base",
           "biocomp.pscoils",
       ],
+      entry_points="""
+      # -*- Entry points: -*-
+      [z3c.autoinclude.plugin]
+      target = plone
+      """,
       )
