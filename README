@@ -1,0 +1,19 @@
+plone4bio.pscoils
+=================
+
+Overview
+--------
+
+The *plone4bio* package provides the possibility to add a new content
+type, called `sequence', than can be either written by hand or imported
+from a FASTA file, and to apply to that sequence a program, called
+`predictor', that gives a back a plot of predicted probabilites for the
+sequence to have a given property (the property that the predictor tries
+to determine).
+
+A predictor can try to assess if a protein sequence is trans-membrane,
+whether a signal peptide exists, and so on.
+
+The *plone4bio.pscoils* is a package that defines a simple prediction
+object based on predictor *biocomp.pscoils*
+
